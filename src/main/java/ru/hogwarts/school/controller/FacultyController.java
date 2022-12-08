@@ -43,7 +43,7 @@ public class FacultyController {
     }
 
     @GetMapping("/get")
-    public Collection<Faculty> getFacultes(@PathVariable("age") String color){
+    public Collection<Faculty> getFacultes(@RequestParam("age") String color){
         return facultyService.getFacultes(color);
     }
 }

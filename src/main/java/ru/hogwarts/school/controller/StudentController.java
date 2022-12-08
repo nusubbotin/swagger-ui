@@ -43,7 +43,7 @@ public class StudentController {
     }
 
     @GetMapping("/get")
-    public Collection<Student> getStudent(@PathVariable("age") int age){
+    public Collection<Student> getStudent(@RequestParam("age") int age){
         return studentService.getStudents(age);
     }
 }
