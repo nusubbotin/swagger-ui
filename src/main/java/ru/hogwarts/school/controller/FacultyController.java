@@ -28,19 +28,19 @@ public class FacultyController {
     }
 
     @PostMapping
-    public Faculty createFaculty(@RequestBody Faculty Faculty){
-        return facultyService.addFaculty(Faculty);
+    public Faculty createFaculty(@RequestBody Faculty faculty){
+        return facultyService.addFaculty(faculty);
     }
 
-    @PutMapping("/{id}")
-    public Faculty editFaculty(@PathVariable("id") Long id, @RequestBody Faculty Faculty){
-        return facultyService.editFaculty(id, Faculty);
+    @PutMapping
+    public Faculty editFaculty(@RequestBody Faculty faculty){
+        return facultyService.editFaculty(faculty);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delFaculty(@PathVariable("id") Long id){
         facultyService.delFaculty(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/get")
