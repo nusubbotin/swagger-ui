@@ -14,8 +14,8 @@ public class Faculty {
 
     private String color;
 
-    @OneToMany(cascade = CascadeType.ALL , fetch = FetchType.LAZY)
-    @JoinColumn(name = "faculty_id", referencedColumnName = "id")
+    @OneToMany(cascade = CascadeType.ALL , fetch = FetchType.LAZY,
+            mappedBy = "faculty_id")
     private Set<Student> students;
 
     @Override
