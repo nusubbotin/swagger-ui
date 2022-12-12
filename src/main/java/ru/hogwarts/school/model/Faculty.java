@@ -19,6 +19,14 @@ public class Faculty {
             mappedBy = "faculty_id")
     private Set<Student> students;
 
+    public Set<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(Set<Student> students) {
+        this.students = students;
+    }
+
     @Override
     public String toString() {
         return "Faculty{" +
