@@ -46,7 +46,7 @@ public class StudentController {
     ){
         if (age != null){
             return studentService.getStudents(age);
-        } else if (min != null || max != null) {
+        } else if (min != null & max != null) {
             return studentService.findByAgeBetween(min.intValue(), max.intValue());
         }
 
