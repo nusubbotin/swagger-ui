@@ -46,7 +46,7 @@ public class FacultyController {
     ){
         if (color != null){
             return facultyService.getFaculties(color);
-        } else if (namePart != null || colorPart != null) {
+        } else if (namePart != null & colorPart != null) {
             return facultyService.getFacultiesByNameOrColor(namePart, colorPart);
         }
 
