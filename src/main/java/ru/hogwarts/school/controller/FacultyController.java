@@ -57,4 +57,9 @@ public class FacultyController {
     public Collection<Student> getStudentsById(@PathVariable("id") Long id){
         return facultyService.findStudentsById(id);
     }
+
+    @GetMapping("/getMaxName")
+    public String getMaxName(){
+        return facultyService.getMaxName();
+    }
 }

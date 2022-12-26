@@ -9,6 +9,7 @@ import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repositories.StudentRepository;
 
 import java.util.Collection;
+import java.util.stream.Stream;
 
 @Service
 public class StudentService {
@@ -82,9 +83,14 @@ public class StudentService {
         return studentCount;
     }
 
-    public int getAgeAvg() {
+    public Double getAgeAvg() {
         logger.info("getAgeAvg: starting");
-        int ageAvg = studentRepository.getAgeAvg();
+        //int ageAvg = studentRepository.getAgeAvg();
+        Collection<Student> students = studentRepository.findAll();
+        Double ageAvg = students.stream()
+                        .map(e -> e.getAge())
+                        .mapToInt(e->e)
+                        .average().orElse(0);
         logger.info("getAgeAvg: finish");
         return ageAvg;
     }
@@ -94,5 +100,25 @@ public class StudentService {
         Collection<String> students = studentRepository.getLast(count);
         logger.info("getLast: finish");
         return students;
+    }
+
+    public Collection<String> getSortedStudentByName(String firstChar) {
+        logger.info("getSortedStudentByName: starting");
+        Collection<Student> students = studentRepository.findAll();
+        Collection<String> studentsNameList = students.stream()
+                .map(e ->  e.getName().toUpperCase())
+                .filter(e -> e.startsWith(firstChar))
+                .sorted()
+                .toList();
+        logger.info("getSortedStudentByName: finish");
+        return studentsNameList;
+    }
+
+    public int getNumber() {
+        int sum = Stream.iterate(1, a -> a +1)
+                .limit(1_000_000)
+                .parallel()
+                .reduce(0, (a, b) -> a + b);
+        return sum;
     }
 }
