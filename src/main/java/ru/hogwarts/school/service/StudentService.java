@@ -9,6 +9,8 @@ import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repositories.StudentRepository;
 
 import java.util.Collection;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Stream;
 
 @Service
@@ -120,5 +122,45 @@ public class StudentService {
                 .parallel()
                 .reduce(0, (a, b) -> a + b);
         return sum;
+    }
+
+    public void presenParallelOutput() {
+        List<Student> students = studentRepository.findAll();
+
+        new Thread(() -> {
+            System.out.println(students.get(4).getName());
+            System.out.println(students.get(5).getName());
+        }).start();
+
+        Thread thread = new Thread(() -> {
+            System.out.println(students.get(2).getName());
+            System.out.println(students.get(3).getName());
+        });
+        thread.start();
+
+        System.out.println(students.get(0).getName());
+        System.out.println(students.get(1).getName());
+
+    }
+
+    private synchronized void printName(List<Student> students, int num){
+        System.out.println(students.get(num).getName());
+    }
+    public void presenSynchronizedOutput() {
+        List<Student> students = studentRepository.findAll();
+
+        printName(students, 0);
+        printName(students, 1);
+
+        Thread thread = new Thread(() -> {
+            printName(students, 2);
+            printName(students, 3);
+        });
+        thread.start();
+
+        new Thread(() -> {
+            printName(students, 4);
+            printName(students, 5);
+        }).start();
     }
 }
