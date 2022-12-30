@@ -82,4 +82,9 @@ public class StudentController {
     public int getNumber(){
         return studentService.getNumber();
     }
+
+    @GetMapping("/presenParallelOutput")
+    public void presenParallelOutput(){
+      studentService.presenParallelOutput();
+    }
 }
