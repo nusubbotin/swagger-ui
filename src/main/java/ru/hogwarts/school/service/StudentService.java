@@ -127,8 +127,10 @@ public class StudentService {
     public void presenParallelOutput() {
         List<Student> students = studentRepository.findAll();
 
-        System.out.println(students.get(0).getName());
-        System.out.println(students.get(1).getName());
+        new Thread(() -> {
+            System.out.println(students.get(4).getName());
+            System.out.println(students.get(5).getName());
+        }).start();
 
         Thread thread = new Thread(() -> {
             System.out.println(students.get(2).getName());
@@ -136,9 +138,29 @@ public class StudentService {
         });
         thread.start();
 
+        System.out.println(students.get(0).getName());
+        System.out.println(students.get(1).getName());
+
+    }
+
+    private synchronized void printName(List<Student> students, int num){
+        System.out.println(students.get(num).getName());
+    }
+    public void presenSynchronizedOutput() {
+        List<Student> students = studentRepository.findAll();
+
+        printName(students, 0);
+        printName(students, 1);
+
+        Thread thread = new Thread(() -> {
+            printName(students, 2);
+            printName(students, 3);
+        });
+        thread.start();
+
         new Thread(() -> {
-            System.out.println(students.get(4).getName());
-            System.out.println(students.get(5).getName());
+            printName(students, 4);
+            printName(students, 5);
         }).start();
     }
 }

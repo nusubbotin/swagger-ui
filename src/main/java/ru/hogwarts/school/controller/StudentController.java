@@ -87,4 +87,9 @@ public class StudentController {
     public void presenParallelOutput(){
       studentService.presenParallelOutput();
     }
+
+    @GetMapping("/presenSynchronizedOutput")
+    public void presenSynchronizedOutput(){
+        studentService.presenSynchronizedOutput();
+    }
 }
