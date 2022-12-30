@@ -57,4 +57,29 @@ public class StudentController {
     public Faculty getFacultyById(@PathVariable("id") Long id){
         return studentService.getStudentFaculty(id);
     }
+
+    @GetMapping("/count")
+    public int getStudentCount(){
+        return studentService.getStudentCount();
+    }
+
+    @GetMapping("/age_avg")
+    public Double getAgeAvg(){
+        return studentService.getAgeAvg();
+    }
+
+    @GetMapping("/getLast")
+    public Collection<String> getLast(@RequestParam int count){
+        return studentService.getLast(count);
+    }
+
+    @GetMapping("/getSortedStudentByName/{firstChar}")
+    public Collection<String> getSortedStudentByName(@PathVariable("firstChar") String firstChar){
+        return studentService.getSortedStudentByName(firstChar);
+    }
+
+    @GetMapping("getNumber")
+    public int getNumber(){
+        return studentService.getNumber();
+    }
 }
