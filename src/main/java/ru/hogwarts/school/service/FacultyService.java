@@ -9,6 +9,7 @@ import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repositories.FacultyRepository;
 
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.stream.Collectors;
 
 @Service
@@ -58,18 +59,10 @@ public class FacultyService {
         logger.info("getMaxName: Start");
         Collection<Faculty> faculties = facultyRepository.findAll();
 
-        logger.info("getMaxName: calc maxLength");
-        int maxLength = faculties.stream()
-                .mapToInt(e-> e.getName().length())
-                .max().orElse(0);
-        logger.info("getMaxName: calc maxLength="+ maxLength);
-
-        logger.info("getMaxName: calc MaxName");
         String maxName = faculties.stream()
-                .map(e-> e.getName())
-                .filter(e -> e.length() == maxLength)
-                .limit(1)
-                .collect(Collectors.joining());
+                .map(e -> e.getName())
+                .max(Comparator.comparingInt(s -> s.length()))
+                .get();
 
         logger.info("getMaxName: calc MaxName="+maxName);
         return maxName;
